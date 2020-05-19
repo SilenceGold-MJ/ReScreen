@@ -8,6 +8,7 @@ import numpy as np
 import time,os
 
 
+
 def console_location(path):
     """
     控制台输出区域像素的位置
@@ -36,7 +37,10 @@ class WaterMark(object):
 
     def mark(self, path):
         # 提取感兴趣区域ROI
-        img = cv.imread(path)
+        #img = cv.imread(path)
+        img = cv.imdecode(np.fromfile(path, dtype=np.uint8), -1)  # 路径不能为中文解决方法
+
+
         # 通过运行console_location函数后在相应的图片上点击两个点可以获取一下两个参数
         # 高1:高2 宽1:宽2
         sp = (img.shape)  # (1080, 1080, 3)=y,x,由三种原色组成
@@ -75,7 +79,8 @@ class WaterMark(object):
         img[y0:y1,x0:x1]= res
         #now = time.strftime("%Y%m%d%H%M%S", time.localtime(time.time()))
         image_dir = os.getcwd() + '\\picture_re2\\'+path.split('\\')[-1]
-        cv.imwrite(image_dir, img)
+        #cv.imwrite(image_dir, img)
+        cv.imencode('.jpg', img)[1].tofile(image_dir)  # 路径不能为中文解决方法
 
 
 # if __name__ == '__main__':
