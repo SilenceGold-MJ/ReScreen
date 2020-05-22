@@ -6,6 +6,9 @@
 import cv2 as cv
 import numpy as np
 import time,os
+from PIL import Image, ImageDraw, ImageFont
+import cv2
+import numpy as np
 
 
 
@@ -77,10 +80,28 @@ class WaterMark(object):
 
         # 高1:高2 宽1:宽2
         img[y0:y1,x0:x1]= res
+
+        # # 写新水印
+        # font = cv.FONT_HERSHEY_SIMPLEX  # 字体类型: 正常大小无衬线字体
+        # # 参数分别是图片, 输入文本数据，放置文本的位置坐标，字体类型，字体大小，颜色为白色，厚度为2
+        # cv.putText(img, 'WinXin:hxxing1', (int(x0+(sp[1]-x0)/2)-100, y0+30), font, 1, (247, 248, 249), 3)
+
+        # 写新水印
+        cv2img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)  # cv2和PIL中颜色的hex码的储存顺序不同
+        pilimg = Image.fromarray(cv2img)
+        # PIL图片上打印汉字
+        draw = ImageDraw.Draw(pilimg)  # 图片上打印#"msyh.ttc""simhei.ttf"
+        font = ImageFont.truetype("STHUPO.TTF", 40, encoding="utf-8")  # 参数1：字体文件路径，参数2：字体大小
+        draw.text((int(x0+(sp[1]-x0)/2)-185, y0+10), "招代理微信：hxxing1", (247, 248, 249), font=font)  # 参数1：打印坐标，参数2：文本，参数3：字体颜色，参数4：字体
+        # PIL图片转cv2 图片
+        cv2charimg = cv2.cvtColor(np.array(pilimg), cv2.COLOR_RGB2BGR)
+        # cv2.imshow("图片", cv2charimg) # 汉字窗口标题显示乱码
+
         #now = time.strftime("%Y%m%d%H%M%S", time.localtime(time.time()))
         image_dir = os.getcwd() + '\\picture_re2\\'+path.split('\\')[-1]
         #cv.imwrite(image_dir, img)
-        cv.imencode('.jpg', img)[1].tofile(image_dir)  # 路径不能为中文解决方法
+        cv.imencode('.jpg', cv2charimg)[1].tofile(image_dir)  # 路径不能为中文解决方法
+
 
 
 # if __name__ == '__main__':
