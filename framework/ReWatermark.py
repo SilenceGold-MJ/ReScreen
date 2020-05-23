@@ -9,6 +9,7 @@ import time,os
 from PIL import Image, ImageDraw, ImageFont
 import cv2
 import numpy as np
+from framework.AddQRcode import *
 
 
 
@@ -101,6 +102,7 @@ class WaterMark(object):
         image_dir = os.getcwd() + '\\picture_re2\\'+path.split('\\')[-1]
         #cv.imwrite(image_dir, img)
         cv.imencode('.jpg', cv2charimg)[1].tofile(image_dir)  # 路径不能为中文解决方法
+        AddQRcode(image_dir)
 
 
 
