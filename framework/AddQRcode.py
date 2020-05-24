@@ -24,7 +24,7 @@ def add_watermark_to_image(image, watermark):
 
     watermark_x, watermark_y = rgba_watermark.size
     # 水印位置
-    rgba_image.paste(rgba_watermark, (image_x - watermark_x-9, image_y - watermark_y-24), rgba_watermark) #右下角
+    rgba_image.paste(rgba_watermark, (image_x - watermark_x-9, image_y - watermark_y-20), rgba_watermark) #右下角
     #rgba_image.paste(rgba_watermark, (image_x - watermark_x, 0), rgba_watermark_mask)  # 右上角
 
     return rgba_image

@@ -39,7 +39,7 @@ def console_location(path):
 
 class WaterMark(object):
 
-    def mark(self, path):
+    def mark(self, path,strs):
         # 提取感兴趣区域ROI
         #img = cv.imread(path)
         img = cv.imdecode(np.fromfile(path, dtype=np.uint8), -1)  # 路径不能为中文解决方法
@@ -48,14 +48,13 @@ class WaterMark(object):
         # 通过运行console_location函数后在相应的图片上点击两个点可以获取一下两个参数
         # 高1:高2 宽1:宽2
         sp = (img.shape)  # (1080, 1080, 3)=y,x,由三种原色组成
-        bzy0 = 1010 / 1080
-        bzy1 = 1060 / 1080
-        bzx0 = 530 / 1080
-        bzx1 = 1060 / 1080
-        y0 = int(sp[0] * bzy0)
-        y1 = int(sp[0] * bzy1)
-        x0 = int(sp[1] * bzx0)
-        x1 = int(sp[1] * bzx1)
+
+        xx0,yy0=536,55
+        xx1,yy1,=16,12
+        x0 = int(sp[1] - xx0 - xx1)
+        y0 = int(sp[0]-yy0-yy1)
+        x1 = int(sp[1]-xx1)
+        y1 = int(sp[0] - yy1)
 
         roi =img[y0:y1,x0:x1]#img[0:sp[1]-65,0:sp[0]]# 高1:高2 宽1:宽2
         # cv.imwrite('02.jpg', roi)
@@ -93,7 +92,9 @@ class WaterMark(object):
         # PIL图片上打印汉字
         draw = ImageDraw.Draw(pilimg)  # 图片上打印#"msyh.ttc""simhei.ttf"
         font = ImageFont.truetype("STHUPO.TTF", 40, encoding="utf-8")  # 参数1：字体文件路径，参数2：字体大小
-        draw.text((int(x0+(sp[1]-x0)/2)-185, y0+10), "招代理微信：hxxing1", (247, 248, 249), font=font)  # 参数1：打印坐标，参数2：文本，参数3：字体颜色，参数4：字体
+        draw.text((sp[1] - int(sp[1] * 480 / sp[1]), (y0+10)), strs, (192, 74, 64),font=font)  # 参数1：打印坐标，参数2：文本，参数3：字体颜色，参数4：字体
+
+        #draw.text((int(x0+(sp[1]-x0)/2)-185, y0+10),strs, (192, 74, 64), font=font)  # 参数1：打印坐标，参数2：文本，参数3：字体颜色，参数4：字体
         # PIL图片转cv2 图片
         cv2charimg = cv2.cvtColor(np.array(pilimg), cv2.COLOR_RGB2BGR)
         # cv2.imshow("图片", cv2charimg) # 汉字窗口标题显示乱码
