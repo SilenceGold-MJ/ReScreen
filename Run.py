@@ -15,7 +15,12 @@ def ReWater(image_dir):
         Screen(path,strs)
         WaterMark().mark(path,strs)
 def Screen(file_path,strs):
+    if not os.path.exists(os.getcwd() + '\\picture_re1\\'):
+        os.makedirs(os.getcwd() + '\\picture_re1\\')
+
+
     sv_path = os.getcwd() + '\\picture_re1\\' + file_path.split('\\')[-1]
+
     img = cv2.imdecode(np.fromfile(file_path, dtype=np.uint8), -1)
     sp=(img.shape)#(1080, 1080, 3)=y,x,由三种原色组成
 
@@ -25,7 +30,7 @@ def Screen(file_path,strs):
     pilimg = Image.fromarray(cv2img)
     # PIL图片上打印汉字
     draw = ImageDraw.Draw(pilimg)  # 图片上打印#"msyh.ttc""simhei.ttf"
-    font = ImageFont.truetype("STHUPO.TTF", 40, encoding="utf-8")  # 参数1：字体文件路径，参数2：字体大小
+    font = ImageFont.truetype("C:/Windows/Fonts/STHUPO.TTF", 40, encoding="utf-8")  # 参数1：字体文件路径，参数2：字体大小
     draw.text((sp[1]-int(sp[1]*480/sp[1]), sp[0]-int(sp[0]*130/sp[0])), strs, (192, 74, 64),
               font=font)  # 参数1：打印坐标，参数2：文本，参数3：字体颜色，参数4：字体
     # PIL图片转cv2 图片

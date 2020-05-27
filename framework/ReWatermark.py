@@ -91,7 +91,7 @@ class WaterMark(object):
         pilimg = Image.fromarray(cv2img)
         # PIL图片上打印汉字
         draw = ImageDraw.Draw(pilimg)  # 图片上打印#"msyh.ttc""simhei.ttf"
-        font = ImageFont.truetype("STHUPO.TTF", 40, encoding="utf-8")  # 参数1：字体文件路径，参数2：字体大小
+        font = ImageFont.truetype(r"C:\Windows\Fonts\STHUPO.TTF", 40, encoding="utf-8")  # 参数1：字体文件路径，参数2：字体大小
         draw.text((sp[1] - int(sp[1] * 480 / sp[1]), (y0+10)), strs, (192, 74, 64),font=font)  # 参数1：打印坐标，参数2：文本，参数3：字体颜色，参数4：字体
 
         #draw.text((int(x0+(sp[1]-x0)/2)-185, y0+10),strs, (192, 74, 64), font=font)  # 参数1：打印坐标，参数2：文本，参数3：字体颜色，参数4：字体
@@ -100,6 +100,8 @@ class WaterMark(object):
         # cv2.imshow("图片", cv2charimg) # 汉字窗口标题显示乱码
 
         #now = time.strftime("%Y%m%d%H%M%S", time.localtime(time.time()))
+        if not os.path.exists(os.getcwd() + '\\picture_re2\\'):
+            os.makedirs(os.getcwd() + '\\picture_re2\\')
         image_dir = os.getcwd() + '\\picture_re2\\'+path.split('\\')[-1]
         #cv.imwrite(image_dir, img)
         cv.imencode('.jpg', cv2charimg)[1].tofile(image_dir)  # 路径不能为中文解决方法
