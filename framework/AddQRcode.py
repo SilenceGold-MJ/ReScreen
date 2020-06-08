@@ -3,6 +3,12 @@ from PIL import Image, ImageDraw, ImageFont
 from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 import os
+import configparser,os
+proDir = os.getcwd()
+configPath = os.path.join(proDir, "config\config.ini")
+cf = configparser.ConfigParser()
+cf.read(configPath,encoding="utf-8-sig")
+
 from framework.logger import Logger
 
 logger = Logger(logger="AddQRcode").getlog()
@@ -45,11 +51,12 @@ def add_watermark_to_image(image, watermark,strs,fon_stra,fon_path):
     return rgba_image
 
 def AddQRcode(path,strs,fon_stra,fon_path):
+
     if not os.path.exists(os.getcwd() + '\\picture_re3\\'):
         os.makedirs(os.getcwd() + '\\picture_re3\\')
     sv_path = os.getcwd() + '\\picture_re3\\' + path.split('\\')[-1]
     im_before = Image.open(str(path))
-    im_watermark = Image.open("./framework/mp.jpg")
+    im_watermark = Image.open("./config/%s"%cf.get("Data", "ErWeiMa"))
     im_after = add_watermark_to_image(im_before, im_watermark,strs,fon_stra,fon_path)
     #im_after.save(sv_path, quality=95, subsampling=0)
     captcha =im_after.convert('RGB')

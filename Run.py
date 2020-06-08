@@ -2,6 +2,12 @@
 from framework.AddQRcode import *
 import platform
 from framework.logger import Logger
+import configparser,os
+proDir = os.getcwd()
+configPath = os.path.join(proDir, "config\config.ini")
+cf = configparser.ConfigParser()
+cf.read(configPath,encoding="utf-8-sig")
+
 logger = Logger(logger="run").getlog()
 
 
@@ -17,10 +23,10 @@ def ReWater(strs,fon_stra,image_dir,fon_path_win7,fon_path_win10):
 
 if __name__ =='__main__':
     image_dir=os.getcwd()+'\\picture'
-    fon_stra=25# 水印字体大小
-    strs='诚招代理'  #水印内容
-    fon_path_win10=r"C:\Windows\Fonts\STHUPO.TTF"#  win10系统水印字体
-    fon_path_win7 = r"C:\Windows\Fonts\方正粗黑宋简体.ttf"  #win7系统 水印字体
+    fon_stra=int(cf.get("Data", "fon_stra"))# 水印字体大小
+    strs=cf.get("Data", "ShuiYin")  #水印内容
+    fon_path_win10=r"C:\Windows\Fonts\%s"%cf.get("Data", "fon_win10")#  win10系统水印字体
+    fon_path_win7 = r"C:\Windows\Fonts\%s"%cf.get("Data", "fon_win7")  #win7系统 水印字体
     ReWater(strs,fon_stra,image_dir,fon_path_win7,fon_path_win10)
     input('Press Enter to exit...')
 
