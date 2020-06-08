@@ -16,7 +16,8 @@ if __name__ =='__main__':
     image_dir=os.getcwd()+'\\picture'
     fon_stra=25# 水印字体大小
     strs='诚招代理'  #水印内容
-    fon_path=r"C:\Windows\Fonts\STHUPO.TTF"#  水印字体
+    fon_path=r"C:\Windows\Fonts\STHUPO.TTF"#  win10系统水印字体
+    #fon_path = r"C:\Windows\Fonts\方正粗黑宋简体.ttf"  #win7系统 水印字体
     ReWater(strs,fon_stra,image_dir,fon_path)
     input('Press Enter to exit...')
 
