@@ -14,5 +14,5 @@ platform.node()       #计算机的网络名称
 platform.processor()  #计算机处理器信息
 
 platform.uname()      #上面所有的信息汇总
-
-print(platform.platform().split('-') [1])
+a=platform.platform().split('-') [1]
+print(type(a))
