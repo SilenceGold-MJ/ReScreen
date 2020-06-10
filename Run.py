@@ -45,6 +45,6 @@ if __name__ =='__main__':
     fon_path_win10=r"C:\Windows\Fonts\%s"%cf.get("Data", "fon_win10")#  win10系统水印字体
     fon_path_win7 = r"C:\Windows\Fonts\%s"%cf.get("Data", "fon_win7")  #win7系统 水印字体
     ReWater(strs,fon_stra,image_dir,fon_path_win7,fon_path_win10)
-    #input('Press Enter to exit...')
+    input('Press Enter to exit...')
 
 
