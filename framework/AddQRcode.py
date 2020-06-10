@@ -51,7 +51,7 @@ def add_watermark_to_image(image, watermark,strs,fon_stra,fon_path):
     return rgba_image
 
 def AddQRcode(path,strs,fon_stra,fon_path):
-    strs=path.split('\\')[-2]+"."+strs
+    strs=path.split('\\')[-2]+"."+strs+" "
     if not os.path.exists(os.getcwd() + '\\picture_re3\\'):
         os.makedirs(os.getcwd() + '\\picture_re3\\')
     sv_path = os.getcwd() + '\\picture_re3\\' + path.split('\\')[-1]

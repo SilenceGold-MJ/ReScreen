@@ -23,7 +23,7 @@ def Getimage(rootdir):#所有文件列表
         if os.path.isfile(path):
             if imghdr.what(path) in ["bmp", "jpg", "png", "gif", "jpeg"]:
                 _files.append(path)
-                dirs.append(int(path.split('\\')[-2]))
+                dirs.append((path.split('\\')[-2]))
 
     return [_files,dirs]
 
