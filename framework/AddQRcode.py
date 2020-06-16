@@ -33,8 +33,8 @@ def add_watermark_to_image(image, watermark,strs,fon_stra,fon_path):
 
     watermark_x, watermark_y = rgba_watermark.size
     # 水印位置
-    reduce_x=int(5/1080*image_y)#边距
-    reduce_y = int(6/2160*image_x)#边距
+    reduce_x=int(10/1080*image_x)#边距
+    reduce_y = int(10/1080*image_y)#边距
     #print(( (image_x - watermark_x-9, image_y - watermark_y-20)))
     rgba_image.paste(rgba_watermark, (image_x - watermark_x-reduce_x, image_y - watermark_y-reduce_y), rgba_watermark) #右下角
     #rgba_image.paste(rgba_watermark, (image_x - watermark_x, 0), rgba_watermark_mask)  # 右上角
